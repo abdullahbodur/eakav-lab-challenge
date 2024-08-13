@@ -72,3 +72,7 @@ Note:
 2. After login, the homepage must show the balance of the user's Ethereum wallet address.
 
 Commit your code to your personal git and share the link.
+
+
+### NOTE:
+Example address: `0xAb40228A9D8659103De421Fd77dBE192cF0e948f` for sepohiola network

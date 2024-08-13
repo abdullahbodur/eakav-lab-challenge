@@ -128,3 +128,21 @@ def user(request):
 
     serializer = serializers.UserSerializer(user)
     return response.Response(serializer.data)
+
+
+@rest_decorators.api_view(["GET"])
+@rest_decorators.permission_classes([rest_permissions.IsAuthenticated])
+def ethBalanceView(request):
+    try:
+        user = models.User.objects.get(id=request.user.id)
+    except models.User.DoesNotExist:
+        return response.Response(status_code=404)
+
+    eth_address = user.eth_address
+    serializer = serializers.EthBalanceSerializer(data={"eth_address": eth_address})
+
+    if not serializer.is_valid():
+        return response.Response(serializer.errors, status_code=400)
+    
+    eth_balance = serializer.get_balance(eth_address)
+    return response.Response({"eth_balance": eth_balance})
